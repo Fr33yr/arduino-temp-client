@@ -5,64 +5,65 @@ import BarChart from './BarChart';
 import { chunkArray } from './chunker';
 import { query, orderBy, collection, getDocs, where } from "firebase/firestore";
 import { db } from '../config/firebase.config';
-import { data } from '../Data/userdata'
+import { data } from '../Data/userdata.js';
 
+let chunkedArr = chunkArray(data, 5)
+const today = new Date()
 
-const d = new Date()
-let chunkedArr = chunkArray(data, 4)
+let dd = String(today.getDate()).padStart(2, '0');
+let mm = String(today.getMonth() + 1).padStart(2, '0'); 
+let yyyy = today.getFullYear();
+
+let TODAY = dd +"-"+ mm +"-"+ yyyy;
 
 export function Home() {
-
   const { user, logout, loading } = useAuth()
-  const [date, setDate] = useState(`${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`)
+  const [date, setDate] = useState(TODAY)
   const [slide, setSlide] = useState(0)
+  const [dataArr, setDataArr] = useState([])
   const [userData, setUserData] = useState({
 
     labels: chunkedArr[slide].map((item) => item.time),
     datasets: [{
       label: 'Temp1',
-      data: chunkedArr[slide].map((item) => item.temp1),
+      data: chunkedArr[slide].map((item) => item.temp),
       backgroundColor: ["#FFA500"],
-    },
-    {
-      label: 'Temp2',
-      data: chunkedArr[slide].map((item) => item.temp2),
-      backgroundColor: ["#176599"],
     }]
   })
+  
+  useEffect(()=>{
+    const q = query(collection(db, 'temp-readings'),
+    where('date', "==", TODAY),
+    orderBy('time', 'asc'))
+
+    async function queryData() {
+      let emptyArr = []
+      try {
+        const querySnapshot = await getDocs(q);
+        querySnapshot.forEach((doc) => {
+          emptyArr.push(doc.data())
+        })
+      } catch (err) {
+        console.log(err);
+      }
+      return emptyArr
+    }
+    setDataArr(queryData()) 
+  },[setDataArr])
+  
+  
+  
 
   useEffect(() => {
     setUserData({
       labels: chunkedArr[slide].map((item) => item.time),
       datasets: [{
         label: 'Temp',
-        data: chunkedArr[slide].map((item) => item.temp1),
+        data: chunkedArr[slide].map((item) => item.temp),
         backgroundColor: ["#FFA500"],
-      },
-      {
-        label: 'Temp2',
-        data: chunkedArr[slide].map((item) => item.temp2),
-        backgroundColor: ["#176599"],
       }]
     })
   }, [slide])
-
-  const q = query(collection(db, 'temp-readings'),
-    where('date', "==", '1-6-2022'),
-    orderBy('time', 'asc'))
-
-  async function queryData() {
-    try {
-      const querySnapshot = await getDocs(q);
-      querySnapshot.forEach((doc) => {
-        console.log(doc.data());
-      })
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
-  queryData()
 
   const handleLogout = async () => {
     try {
@@ -88,7 +89,7 @@ export function Home() {
         </div>
 
         <BarChart chartData={userData} slide={slide} setSlide={setSlide}
-          chunkedArr={chunkedArr} />
+          chunkedArr={chunkedArr} setDate={setDate} TODAY={TODAY}/>
 
       </div>
       

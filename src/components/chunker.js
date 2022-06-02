@@ -4,6 +4,10 @@ export function chunkArray(arr, chunkSize) {
         return console.log(`Chunk size most be higher than 0
         and an integer`);
     }
+
+    if(arr === []){
+        return console.log('Empty Array');
+    }
   
     let slicedArr = []
     for (let i = 0; i < arr.length; i += chunkSize) {
