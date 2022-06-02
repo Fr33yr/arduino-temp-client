@@ -11,7 +11,7 @@ import { AuthProvider } from './context/authContext';
 function App() {
 
   return (
-    <div className="bg-slate-300 h-screen text-black flex flex-direction-column">
+    <div className="bg-slate-300 text-black flex flex-direction-column">
       <AuthProvider>
         <Routes>
         <Route path='/' element={

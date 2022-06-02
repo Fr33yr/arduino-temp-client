@@ -6,15 +6,18 @@ import { Chart as ChartJS } from 'chart.js/auto'
 function BarChart({ chartData, slide, setSlide, chunkedArr }) {
 
     return (
-        <div className='w-full max-w-xs m-auto mt-32'>
-            <Bar data={chartData} className="mt-32" />
+        <div className='w-full max-w-xs m-auto mt-32 mb-28'>
+            <button className="bg-blue-500 ml-16 px-4 py-1"
+            >Hoy</button>
+            <input type="date" name="date" id="date" className="ml-12 mb-10"/>
+            <Bar data={chartData} />
 
-            <div className="btns-container flex justify-between mt-6">
+            <div className="btns-container flex justify-between mt-10">
                 <button onClick={() => setSlide(slide - 1)}
-                    className="bg-blue-500 ml-16 disabled:opacity-25"
+                    className="bg-blue-500 ml-12 disabled:opacity-25  px-3 py-1"
                     disabled={slide === 0 ? true : false}>Anterior</button>
                 <button onClick={() => setSlide(slide + 1)}
-                    className="bg-blue-500 mr-16 disabled:opacity-25"
+                    className="bg-blue-500 mr-12 disabled:opacity-25  px-3 py-1"
                     disabled={slide === (chunkedArr.length - 1) ? true : false}>
                     Siguiente</button>
             </div>
