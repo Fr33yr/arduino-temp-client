@@ -3,7 +3,26 @@ import { useAuth } from '../context/authContext'
 import BarChart from './BarChart';
 
 import { chunkArray } from './chunker';
+import { query, orderBy, collection, getDocs, where} from "firebase/firestore";
+import { db } from '../config/firebase.config';
 import { data } from '../Data/userdata'
+
+
+const q = query(collection(db, 'temp-readings'), 
+where('date', "==", '1/6/2022'), 
+orderBy('time', 'asc'))
+
+async function queryData() {
+  try {const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      console.log(doc.id, "=>", doc.data());
+    })
+  } catch (err){
+    console.log(err);
+  }
+}
+
+queryData()
 
 let chunkedArr =  chunkArray(data, 4) 
 

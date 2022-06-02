@@ -10,12 +10,13 @@ function BarChart({ chartData, slide, setSlide, chunkedArr }) {
             <Bar data={chartData} className="mt-32" />
 
             <div className="btns-container flex justify-between mt-6">
-                <button onClick={() => setSlide(slide + 1)}
-                    className="bg-blue-500 ml-24 disabled:opacity-25"
-                    disabled={slide === (chunkedArr.length - 1) ? true : false}>Increase</button>
                 <button onClick={() => setSlide(slide - 1)}
-                    className="bg-blue-500 mr-24 disabled:opacity-25"
-                    disabled={slide === 0 ? true : false}>Decrease</button>
+                    className="bg-blue-500 ml-16 disabled:opacity-25"
+                    disabled={slide === 0 ? true : false}>Anterior</button>
+                <button onClick={() => setSlide(slide + 1)}
+                    className="bg-blue-500 mr-16 disabled:opacity-25"
+                    disabled={slide === (chunkedArr.length - 1) ? true : false}>
+                    Siguiente</button>
             </div>
         </div>
     )
