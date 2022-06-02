@@ -31,26 +31,24 @@ export function Home() {
     }]
   })
   
-  useEffect(()=>{
-    const q = query(collection(db, 'temp-readings'),
+  const q = query(collection(db, 'temp-readings'),
     where('date', "==", TODAY),
     orderBy('time', 'asc'))
 
+  useEffect(()=>{
     async function queryData() {
       let emptyArr = []
-      try {
         const querySnapshot = await getDocs(q);
         querySnapshot.forEach((doc) => {
           emptyArr.push(doc.data())
         })
-      } catch (err) {
-        console.log(err);
-      }
-      return emptyArr
+      
+      return chunkArray(emptyArr, 5) 
     }
-    setDataArr(queryData()) 
-  },[setDataArr])
+    setDataArr(queryData());
+  },[])
   
+  console.log(dataArr);
   
   
 
