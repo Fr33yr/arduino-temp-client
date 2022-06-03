@@ -31,7 +31,7 @@ export function Home() {
   })
 
   const q = query(collection(db, 'temp-readings'),
-    where('date', "==", '01-06-2022'),
+    where('date', "==", '02-06-2022'),
     orderBy('time', 'asc'))
 
 
@@ -54,7 +54,9 @@ export function Home() {
           }]
         })
       } catch(e){
-        console.log(e);
+        if(e.message.includes('undefined')){
+          console.log('No hay registros de esa fecha');
+        }
       }
 
     }
