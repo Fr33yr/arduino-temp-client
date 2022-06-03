@@ -35,23 +35,27 @@ export function Home() {
     orderBy('time', 'asc'))
 
 
-  async function queryData() {
-    let emptyArr = []
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => {
-      emptyArr.push(doc.data())
-    })
-    return setUserData({
-      labels: chunkArray(emptyArr, 5)[slide].map((item) => item.time),
-      datasets: [{
-        label: 'Temp',
-        data: chunkArray(emptyArr, 5)[slide].map((item) => item.temp),
-        backgroundColor: ["#FFA500"],
-      }]
-    })
-  }
-  queryData()
-  
+  useEffect(() => {
+    async function queryData() {
+      let emptyArr = []
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        emptyArr.push(doc.data())
+      })
+
+      return setUserData({
+        labels: chunkArray(emptyArr, 5)[slide].map((item) => item.time),
+        datasets: [{
+          label: 'Temp',
+          data: chunkArray(emptyArr, 5)[slide].map((item) => item.temp),
+          backgroundColor: ["#FFA500"],
+        }]
+      })
+
+    }
+    queryData()
+  }, [slide])
+
 
   const handleLogout = async () => {
     try {
