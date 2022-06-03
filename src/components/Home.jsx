@@ -11,10 +11,10 @@ let chunkedArr = chunkArray(data, 5)
 const today = new Date()
 
 let dd = String(today.getDate()).padStart(2, '0');
-let mm = String(today.getMonth() + 1).padStart(2, '0'); 
+let mm = String(today.getMonth() + 1).padStart(2, '0');
 let yyyy = today.getFullYear();
 
-let TODAY = dd +"-"+ mm +"-"+ yyyy;
+let TODAY = dd + "-" + mm + "-" + yyyy;
 
 export function Home() {
   const { user, logout, loading } = useAuth()
@@ -29,38 +29,29 @@ export function Home() {
       backgroundColor: ["#FFA500"],
     }]
   })
-  
+
   const q = query(collection(db, 'temp-readings'),
-    where('date', "==", TODAY),
+    where('date', "==", '02-06-2022'),
     orderBy('time', 'asc'))
 
-  useEffect(()=>{
-    async function queryData() {
-      let emptyArr = []
-        const querySnapshot = await getDocs(q);
-        querySnapshot.forEach((doc) => {
-          emptyArr.push(doc.data())
-        })
-      
-      return chunkArray(emptyArr, 5) 
-    }
 
-  },[])
-  
-
-  
-  
-
-  useEffect(() => {
-    setUserData({
-      labels: chunkedArr[slide].map((item) => item.time),
+  async function queryData() {
+    let emptyArr = []
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      emptyArr.push(doc.data())
+    })
+    return setUserData({
+      labels: chunkArray(emptyArr, 5)[slide].map((item) => item.time),
       datasets: [{
         label: 'Temp',
-        data: chunkedArr[slide].map((item) => item.temp),
+        data: chunkArray(emptyArr, 5)[slide].map((item) => item.temp),
         backgroundColor: ["#FFA500"],
       }]
     })
-  }, [slide])
+  }
+  queryData()
+  
 
   const handleLogout = async () => {
     try {
@@ -86,10 +77,10 @@ export function Home() {
         </div>
 
         <BarChart chartData={userData} slide={slide} setSlide={setSlide}
-          chunkedArr={chunkedArr} setDate={setDate} TODAY={TODAY}/>
+          chunkedArr={chunkedArr} setDate={setDate} TODAY={TODAY} />
 
       </div>
-      
+
     </Fragment>
 
   )
