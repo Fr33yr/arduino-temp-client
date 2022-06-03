@@ -5,7 +5,7 @@ import { Chart as ChartJS } from 'chart.js/auto'
 
 
 
-function BarChart({ chartData, slide, setSlide, chunkedArr, setDate, TODAY }) {
+function BarChart({ chartData, slide, setSlide, arrData, setDate, TODAY }) {
 
     return (
         <div className='w-full max-w-xs m-auto mt-32 mb-28'>
@@ -21,7 +21,7 @@ function BarChart({ chartData, slide, setSlide, chunkedArr, setDate, TODAY }) {
                     disabled={slide === 0 ? true : false}>Anterior</button>
                 <button onClick={() => setSlide(slide + 1)}
                     className="bg-blue-500 mr-12 disabled:opacity-25  px-3 py-1"
-                    disabled={slide === (chunkedArr.length - 1) ? true : false}>
+                    disabled={slide === (arrData.length - 1) ? true : false}>
                     Siguiente</button>
             </div>
         </div>

@@ -5,9 +5,8 @@ import BarChart from './BarChart';
 import { chunkArray } from './chunker';
 import { query, orderBy, collection, getDocs, where } from "firebase/firestore";
 import { db } from '../config/firebase.config';
-import { data } from '../Data/userdata.js';
 
-let chunkedArr = chunkArray(data, 5)
+
 const today = new Date()
 
 let dd = String(today.getDate()).padStart(2, '0');
@@ -20,12 +19,13 @@ export function Home() {
   const { user, logout, loading } = useAuth()
   const [date, setDate] = useState(TODAY)
   const [slide, setSlide] = useState(0)
+  const [arrData, setArrData] = useState([])
   const [userData, setUserData] = useState({
 
-    labels: chunkedArr[slide].map((item) => item.time),
+    labels: [],
     datasets: [{
       label: 'Temp1',
-      data: chunkedArr[slide].map((item) => item.temp),
+      data: [],
       backgroundColor: ["#FFA500"],
     }]
   })
@@ -44,7 +44,7 @@ export function Home() {
         querySnapshot.forEach((doc) => {
           emptyArr.push(doc.data())
         })
-
+        setArrData(chunkArray(emptyArr, 5))
         return setUserData({
           labels: chunkArray(emptyArr, 5)[slide].map((item) => item.time),
           datasets: [{
@@ -53,8 +53,8 @@ export function Home() {
             backgroundColor: ["#FFA500"],
           }]
         })
-      } catch(e){
-        if(e.message.includes('undefined')){
+      } catch (e) {
+        if (e.message.includes('undefined')) {
           console.log('No hay registros de esa fecha');
         }
       }
@@ -62,7 +62,6 @@ export function Home() {
     }
     queryData()
   }, [slide])
-
 
   const handleLogout = async () => {
     try {
@@ -88,7 +87,7 @@ export function Home() {
         </div>
 
         <BarChart chartData={userData} slide={slide} setSlide={setSlide}
-          chunkedArr={chunkedArr} setDate={setDate} TODAY={TODAY} />
+          arrData={arrData} setDate={setDate} TODAY={TODAY} />
 
       </div>
 
