@@ -31,26 +31,31 @@ export function Home() {
   })
 
   const q = query(collection(db, 'temp-readings'),
-    where('date', "==", '02-06-2022'),
+    where('date', "==", '01-06-2022'),
     orderBy('time', 'asc'))
 
 
   useEffect(() => {
     async function queryData() {
-      let emptyArr = []
-      const querySnapshot = await getDocs(q);
-      querySnapshot.forEach((doc) => {
-        emptyArr.push(doc.data())
-      })
 
-      return setUserData({
-        labels: chunkArray(emptyArr, 5)[slide].map((item) => item.time),
-        datasets: [{
-          label: 'Temp',
-          data: chunkArray(emptyArr, 5)[slide].map((item) => item.temp),
-          backgroundColor: ["#FFA500"],
-        }]
-      })
+      try {
+        let emptyArr = []
+        const querySnapshot = await getDocs(q);
+        querySnapshot.forEach((doc) => {
+          emptyArr.push(doc.data())
+        })
+
+        return setUserData({
+          labels: chunkArray(emptyArr, 5)[slide].map((item) => item.time),
+          datasets: [{
+            label: 'Temp',
+            data: chunkArray(emptyArr, 5)[slide].map((item) => item.temp),
+            backgroundColor: ["#FFA500"],
+          }]
+        })
+      } catch(e){
+        console.log(e);
+      }
 
     }
     queryData()
