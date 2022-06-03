@@ -20,7 +20,6 @@ export function Home() {
   const { user, logout, loading } = useAuth()
   const [date, setDate] = useState(TODAY)
   const [slide, setSlide] = useState(0)
-  const [dataArr, setDataArr] = useState([])
   const [userData, setUserData] = useState({
 
     labels: chunkedArr[slide].map((item) => item.time),
@@ -45,10 +44,10 @@ export function Home() {
       
       return chunkArray(emptyArr, 5) 
     }
-    setDataArr(queryData());
+
   },[])
   
-  console.log(dataArr);
+
   
   
 
