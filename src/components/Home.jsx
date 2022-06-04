@@ -20,6 +20,7 @@ export function Home() {
   const [date, setDate] = useState(TODAY)
   const [slide, setSlide] = useState(0)
   const [arrData, setArrData] = useState([])
+  const [error, setError] = useState('')
   const [userData, setUserData] = useState({
 
     labels: [],
@@ -45,6 +46,7 @@ export function Home() {
           emptyArr.push(doc.data())
         })
         setArrData(chunkArray(emptyArr, 5))
+        setError('')
         return setUserData({
           labels: chunkArray(emptyArr, 5)[slide].map((item) => item.time),
           datasets: [{
@@ -55,7 +57,7 @@ export function Home() {
         })
       } catch (e) {
         if (e.message.includes('undefined') && date !== "") {
-          alert("No hay registros en esa fecha")
+          setError("No hay registros en esa fecha")
         }
       }
 
@@ -89,7 +91,7 @@ export function Home() {
         </div>
 
         <BarChart chartData={userData} slide={slide} setSlide={setSlide}
-          arrData={arrData} setDate={setDate} date={date} TODAY={TODAY} />
+          arrData={arrData} setDate={setDate} date={date} TODAY={TODAY} error={error}/>
 
       </div>
 
