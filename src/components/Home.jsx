@@ -20,7 +20,6 @@ export function Home() {
   const [date, setDate] = useState(TODAY)
   const [slide, setSlide] = useState(0)
   const [arrData, setArrData] = useState([])
-  const [error, setError] = useState('')
   const [userData, setUserData] = useState({
 
     labels: [],
@@ -55,19 +54,16 @@ export function Home() {
           }]
         })
       } catch (e) {
-        if (e.message.includes('undefined')) {
-          console.log('No hay registros de esa fecha');
-          setError('No hay registros de esa fecha')
-          setArrData([])
+        if (e.message.includes('undefined') && date !== "") {
+          alert("No hay registros en esa fecha")
         }
       }
 
     }
     queryData()
     console.log(date);
-  }, [slide, setError, date])
+  }, [slide, date])
 
-  
 
   const handleLogout = async () => {
     try {
@@ -93,7 +89,7 @@ export function Home() {
         </div>
 
         <BarChart chartData={userData} slide={slide} setSlide={setSlide}
-          arrData={arrData} setDate={setDate} TODAY={TODAY} error={error}/>
+          arrData={arrData} setDate={setDate} date={date} TODAY={TODAY} />
 
       </div>
 

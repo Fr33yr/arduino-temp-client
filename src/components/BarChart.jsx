@@ -3,17 +3,25 @@ import { Bar } from 'react-chartjs-2'
 import { Chart as ChartJS } from 'chart.js/auto'
 
 
-function BarChart({ chartData, slide, setSlide, arrData, setDate, TODAY, error }) {
+function BarChart({ chartData, slide, setSlide, arrData, setDate, date, TODAY }) {
 
+    const handleChange = (e) => {
+        e.preventDefault()
+        setDate(e.target.value)
+        setSlide(0)
+    }
+
+    const handleClick = () => {
+        setDate(TODAY)
+        setSlide(0)
+    }
+    
     return (
         <div className='w-full max-w-xs m-auto mt-16 mb-28'>
-            <h1 className='block text-center mb-8 bg-red-400  
-            mx-auto my-0 w-max px-3'>{error =! '' && error}</h1>
             <button className="bg-blue-500 ml-16 px-4 py-1"
-            onClick={()=>setDate(TODAY)}>Hoy</button>
-            <input type="date" name="date" id="date" className="ml-12 mb-10"
-            onChange={(e)=>setDate(e.target.value)}/>
-
+            onClick={handleClick}>Hoy</button>
+            <input type="date" name="date" id="date" value={date} className="ml-12 mb-10"
+            onChange={(e)=>handleChange(e)}/>
             <Bar data={chartData} />
 
             <div className="btns-container flex justify-between mt-10">
