@@ -25,9 +25,14 @@ export function Home() {
 
     labels: [],
     datasets: [{
-      label: 'Temp1',
+      label: 'Sensor 1',
       data: [],
       backgroundColor: ["#FFA500"],
+    },
+    {
+      label: 'Sensor 2',
+      data: [],
+      backgroundColor: ["#3750ad"],
     }]
   })
 
@@ -50,9 +55,13 @@ export function Home() {
         return setUserData({
           labels: chunkArray(emptyArr, 5)[slide].map((item) => item.time),
           datasets: [{
-            label: 'Temp',
-            data: chunkArray(emptyArr, 5)[slide].map((item) => item.temp),
+            label: 'Sensor 1',
+            data: chunkArray(emptyArr, 5)[slide].map((item) => item.temp[0].sensor1),
             backgroundColor: ["#FFA500"],
+          },{
+            label: 'Sensor 2',
+            data: chunkArray(emptyArr, 5)[slide].map((item) => item.temp[1].sensor2),
+            backgroundColor: ["#3750ad"],
           }]
         })
       } catch (e) {
