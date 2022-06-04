@@ -83,9 +83,9 @@ export function Home() {
 
     <Fragment>
       <div className='w-full max-w text-black'>
-        <div className="bg-white rounded shadow-md px-6 pt-2 pt-6 pb-2 
+        <div className="bg-white shadow-md px-6 pt-2 pt-6 pb-2 
           flex justify-between">
-          <h1 className='text-xl mt-2'>Welcome {user.email}</h1>
+          <h1 className='text-xl mt-2'>Welcome </h1>
           <button className='bg-slate-200 hover:bg-slate-300 rounded py-1 px-4 
         text-black' onClick={handleLogout}>logout</button>
         </div>
