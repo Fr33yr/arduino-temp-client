@@ -42,15 +42,15 @@ export function Login() {
   }
 
   return (
-    <div className="w-full max-w-xs m-auto">
+    <div className="w-full max-w-xs m-auto mt-36 mb-52">
 
       {error && <Alert message={error}/>}
       
-      <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6
+      <form onSubmit={handleSubmit} className="bg-neutral-900 shadow-md rounded px-8 pt-6
       pb-8 mb-4">
 
         <div className="mb-4">
-        <label htmlFor="email" className="block text-gray-700 
+        <label htmlFor="email" className="block text-white  
         text-sm font-bold mb-2">Email</label>
         <input type="email" name="email" id="email"
           placeholder="exampleEmail@gmail.com" className="shadow appearance-none
@@ -61,7 +61,7 @@ export function Login() {
         </div>
 
         <div className="mb-4">
-        <label htmlFor="password" className="block text-gray-700 
+        <label htmlFor="password" className="block text-white  
         text-sm font-bold mb-2">Password</label>
         <input type="password" name="password" id="password" className="shadow appearance-none
           border rounded w-full py-2 px-3 text-gray-700 leading-tight 
@@ -72,7 +72,7 @@ export function Login() {
         
         <button type="submit" className="bg-blue-500
          hover:bg-blue-700 text-white font-bold
-         py-2 px-4 rounded focus:outline-none
+         py-2 px-4 focus:outline-none
           focus:shadow-outline">Login</button>
       </form>
 
