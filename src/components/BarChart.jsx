@@ -35,7 +35,7 @@ function BarChart({ chartData, slide, setSlide, arrData, setDate, date, TODAY, e
     }
 
     return (
-        <div className='w-full max-w-xs m-auto mt-16 mb-28'>
+        <div className='w-full w-1/2 m-auto mt-16 mb-28'>
             <h1 className={`text-center mx-auto my-0 bg-red-400
             w-max mb-12 py-1 px-2 border-solid border-2
             border-red-500 rounded-sm ${handleErrorMessage()}`}>{error}</h1>

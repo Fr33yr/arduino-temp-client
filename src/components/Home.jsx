@@ -50,17 +50,17 @@ export function Home() {
         querySnapshot.forEach((doc) => {
           emptyArr.push(doc.data())
         })
-        setArrData(chunkArray(emptyArr, 5))
+        setArrData(chunkArray(emptyArr, 6))
         setError('')
         return setUserData({
-          labels: chunkArray(emptyArr, 5)[slide].map((item) => item.time),
+          labels: chunkArray(emptyArr, 6)[slide].map((item) => item.time),
           datasets: [{
             label: 'Sensor 1',
-            data: chunkArray(emptyArr, 5)[slide].map((item) => item.temp[0].sensor1),
+            data: chunkArray(emptyArr, 6)[slide].map((item) => item.temp[0].sensor1),
             backgroundColor: ["#FFA500"],
           },{
             label: 'Sensor 2',
-            data: chunkArray(emptyArr, 5)[slide].map((item) => item.temp[1].sensor2),
+            data: chunkArray(emptyArr, 6)[slide].map((item) => item.temp[1].sensor2),
             backgroundColor: ["#3750ad"],
           }]
         })
@@ -92,11 +92,11 @@ export function Home() {
 
     <Fragment>
       <div className='w-full max-w text-black'>
-        <div className="bg-white shadow-md px-6 pt-2 pt-6 pb-2 
+        <div className="bg-black shadow-md px-6 pt-2 pt-6 pb-2 
           flex justify-between">
-          <h1 className='text-xl mt-2'>Welcome </h1>
-          <button className='bg-slate-200 hover:bg-slate-300 rounded py-1 px-4 
-        text-black' onClick={handleLogout}>logout</button>
+          <h1 className='text-xl text-white mt-1 pb-2'>Sensores de Temperatura</h1>
+          <button className='bg-red-700 hover:bg-red-500  py-1 px-4 
+         text-black mb-2' onClick={handleLogout}>Salir</button>
         </div>
 
         <BarChart chartData={userData} slide={slide} setSlide={setSlide}
