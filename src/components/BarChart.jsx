@@ -5,6 +5,18 @@ import { Chart as ChartJS } from 'chart.js/auto'
 
 function BarChart({ chartData, slide, setSlide, arrData, setDate, date, TODAY, error }) {
 
+    const options = {
+        scales: {
+            y: {
+                title: {
+                    color: 'gray',
+                    display: true,
+                    text: 'Temperatura °C'
+                }
+            }
+        }
+    }
+
     const handleChange = (e) => {
         e.preventDefault()
         setDate(e.target.value)
@@ -17,21 +29,22 @@ function BarChart({ chartData, slide, setSlide, arrData, setDate, date, TODAY, e
     }
 
     const handleErrorMessage = () => {
-        if(error === ''){
+        if (error === '') {
             return 'hidden'
         }
     }
-    
+
     return (
         <div className='w-full max-w-xs m-auto mt-16 mb-28'>
             <h1 className={`text-center mx-auto my-0 bg-red-400
             w-max mb-12 py-1 px-2 border-solid border-2
             border-red-500 rounded-sm ${handleErrorMessage()}`}>{error}</h1>
             <button className="bg-blue-500 ml-16 px-4 py-1"
-            onClick={handleClick}>Hoy</button>
+                onClick={handleClick}>Hoy</button>
             <input type="date" name="date" id="date" value={date} className="ml-12 mb-10"
-            onChange={(e)=>handleChange(e)}/>
-            <Bar data={chartData} />
+                onChange={(e) => handleChange(e)} />
+            
+            <Bar data={chartData} options={options} />
 
             <div className="btns-container flex justify-between mt-10">
                 <button onClick={() => setSlide(slide - 1)}
