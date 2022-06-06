@@ -75,9 +75,7 @@ export function Login() {
          py-2 px-4 focus:outline-none
           focus:shadow-outline">Login</button>
       </form>
-
-      <p className="my-4 text-sm flex justify-between px-10">Dont have an Account? 
-      <Link to={'/register'}>Register</Link></p>      
+    
     </div>
   )
 }

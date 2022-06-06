@@ -3,7 +3,6 @@ import { Routes, Route } from 'react-router-dom';
 import './App.css';
 import { Home } from './components/Home';
 import { Login } from './components/Login';
-import { Register } from './components/Register';
 import { ProtectedRoute } from './components/ProtectedRoutes';
 import { AuthProvider } from './context/authContext';
 
@@ -20,7 +19,6 @@ function App() {
           </ProtectedRoute>
         } />
           <Route path='/login' element={<Login />} />
-          <Route path='/register' element={<Register />} />
         </Routes>
       </AuthProvider>
     </div>
