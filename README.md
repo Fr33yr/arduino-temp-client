@@ -7,3 +7,5 @@ React Router
 Chart.js
 Tailwind css
 firebase
+
+![github-small](app-screenshot.jpg)
