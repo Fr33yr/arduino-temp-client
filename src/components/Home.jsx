@@ -16,10 +16,10 @@ let yyyy = today.getFullYear();
 let TODAY = yyyy+"-"+mm+"-"+dd;
 
 export function Home() {
-  const { user, logout, loading } = useAuth()
+  const { logout, loading } = useAuth()
   const [date, setDate] = useState(TODAY)
   const [slide, setSlide] = useState(0)
-  const [arrData, setArrData] = useState([])
+  const [arrLenght, setArrLenght] = useState(0)
   const [error, setError] = useState('')
   const [userData, setUserData] = useState({
 
@@ -45,22 +45,25 @@ export function Home() {
     async function queryData() {  
 
       try {
-        let emptyArr = []
+        let data = []
         const querySnapshot = await getDocs(q);
         querySnapshot.forEach((doc) => {
-          emptyArr.push(doc.data())
+          data.push(doc.data())
         })
-        setArrData(chunkArray(emptyArr, 6))
+        let chunkedArr = chunkArray(data, 6)
+        setArrLenght(chunkedArr.length)
+
         setError('')
+
         return setUserData({
-          labels: chunkArray(emptyArr, 6)[slide].map((item) => item.time),
+          labels: chunkedArr[slide].map((item) => item.time),
           datasets: [{
             label: 'Sensor 1',
-            data: chunkArray(emptyArr, 6)[slide].map((item) => item.temp[0].sensor1),
+            data: chunkedArr[slide].map((item) => item.temp[0].sensor1),
             backgroundColor: ["#FFA500"],
           },{
             label: 'Sensor 2',
-            data: chunkArray(emptyArr, 6)[slide].map((item) => item.temp[1].sensor2),
+            data: chunkedArr[slide].map((item) => item.temp[1].sensor2),
             backgroundColor: ["#3750ad"],
           }]
         })
@@ -72,7 +75,6 @@ export function Home() {
 
     }
     queryData()
-    console.log(date);
   }, [slide, date])
 
 
@@ -100,7 +102,7 @@ export function Home() {
         </div>
 
         <BarChart chartData={userData} slide={slide} setSlide={setSlide}
-          arrData={arrData} setDate={setDate} date={date} TODAY={TODAY} error={error}/>
+          arrLenght={arrLenght} setDate={setDate} date={date} TODAY={TODAY} error={error}/>
 
       </div>
 

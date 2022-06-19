@@ -3,7 +3,7 @@ import { Bar } from 'react-chartjs-2'
 import { Chart as ChartJS } from 'chart.js/auto'
 
 
-function BarChart({ chartData, slide, setSlide, arrData, setDate, date, TODAY, error }) {
+function BarChart({ chartData, slide, setSlide, arrLenght, setDate, date, TODAY, error }) {
 
     const options = {
         scales: {
@@ -52,7 +52,7 @@ function BarChart({ chartData, slide, setSlide, arrData, setDate, date, TODAY, e
                     disabled={slide === 0 ? true : false}>Anterior</button>
                 <button onClick={() => setSlide(slide + 1)}
                     className="bg-blue-500 mr-8 disabled:opacity-25  px-3 py-1"
-                    disabled={slide === (arrData.length - 1) ? true : false}>
+                    disabled={slide === (arrLenght - 1) ? true : false}>
                     Siguiente</button>
             </div>
         </div>
